@@ -1,0 +1,43 @@
+<h1>Edit your skills</h1>
+<h3><%= @user.name %></h3>
+<div>
+  <table>
+    <tr>
+      <td><%= @user.name %></td>
+      <td><% @user.skills.each do |skill| %>
+        <p><%= skill.name %></p>
+        <% end %>
+        </td>
+        <td><% @user.skills.each do |skill| %>
+          <p><%= Proficiency.find_by(skill_id: skill.id, user_id: @user.id).years %></p>
+          <% end %>
+        </td>
+        <td><% @user.skills.each do |skill| %>
+          <p><%= Proficiency.find_by(skill_id: skill.id, user_id: @user.id).formal %></p>
+          <% end %>
+        </td>
+    </tr>
+  <table>
+</div>
+
+
+<form id="edit" method="post" action="/edit">
+  <label class="edit_label" for="name">Name</label>
+  <input type="text" name="name" value="<%= @user.name %>">
+  <label class="edit_label" for="skills">Skills (select one to add):</label>
+  <select id="skills" name="skills">
+    <% @skills.each do |skill| %>
+      <option value="<%=skill.name%>"><%=skill.name%></option>
+    <% end %>
+  </select>
+  <label class="edit_label" for="years">Years of experience:
+  <input id="years" type="text" name="years"></label>
+  <label class="edit_label" for="formal">Formal education? </label>
+  <select id="formal" name="formal">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select>
+
+
+  <div class="submit"><input type="submit" value="Save Changes"></div>
+</form>

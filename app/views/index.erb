@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>User Skills and Levels</h1>
+
+  <%# TODO: display the skills and proficiency levels for each user ... %>
+  <table>
+  <% if @users %>
+    <% @users.each do |user| %>
+      <tr>
+        <% if user.id == session[:user_id] %>
+        <td><a href="/edit"><%= user.name %></a></td>
+        <% else %>
+        <td><%= user.name %></td>
+        <% end %>
+        <td><% user.skills.each do |skill| %>
+          <p><%= skill.name %></p>
+          <% end %>
+        </td>
+        <td><% user.skills.each do |skill| %>
+          <p><%= Proficiency.find_by(skill_id: skill.id, user_id: user.id).years %></p>
+          <% end %>
+        </td>
+        <td><% user.skills.each do |skill| %>
+          <p><%= Proficiency.find_by(skill_id: skill.id, user_id: user.id).formal %></p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+</div>
